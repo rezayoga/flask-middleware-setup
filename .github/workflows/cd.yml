@@ -10,7 +10,7 @@ on:
       - main
 
   # Allows you to run this workflow manually from the Actions tab
-  # workflow_dispatch:
+  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -36,3 +36,9 @@ jobs:
             cd /home/rezayogaswara/python_projects/flask-middleware-setup
             ls -ahl
             pwd
+            git pull origin main
+            alias graph="git log --all --decorate --oneline --graph"
+            graph
+            sudo systemctl stop flaskmiddleware
+            sudo systemctl start flaskmiddleware
+            sudo systemctl status flaskmiddleware
