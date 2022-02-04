@@ -33,8 +33,8 @@ jobs:
           username: root
           key: ${{ secrets.SERVER_CREDENTIAL_PRIVATE_KEY }}
           port: 2211
-          # passphrase: ${{ secrets.SERVER_CREDENTIAL_PASSPHRASE }}
-          passphrase: Rezay0ga@85
+          passphrase: ${{ secrets.SERVER_CREDENTIAL_PASSPHRASE }}
+          # passphrase: Rezay0ga@85
           script: |
             cd /home/rezayogaswara/python_projects/flask-middleware-setup
             ls -ahl
