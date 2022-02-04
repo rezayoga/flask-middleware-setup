@@ -5,12 +5,14 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
-  my_ci_pipeline:
+  ci-pipeline:
 
     runs-on: ubuntu-latest
 
