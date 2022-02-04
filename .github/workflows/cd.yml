@@ -37,8 +37,7 @@ jobs:
             ls -ahl
             pwd
             git pull origin main
-            alias graph="git log --all --decorate --oneline --graph"
-            graph
+            git log --all --decorate --oneline --graph
             sudo systemctl stop flaskmiddleware
             sudo systemctl start flaskmiddleware
             sudo systemctl status flaskmiddleware
