@@ -36,4 +36,3 @@ jobs:
             cd /home/rezayogaswara/python_projects/flask-middleware-setup
             ls -ahl
             pwd
-            whoami
