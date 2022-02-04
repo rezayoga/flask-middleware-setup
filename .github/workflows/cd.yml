@@ -27,13 +27,13 @@ jobs:
       - name: Deploy to my server
         uses: appleboy/ssh-action@master
         with:
-          host: rezayogaswara.com
-          username: root
+          host: ${{ secrets.SERVER_CREDENTIAL_HOST }}
+          username: ${{ secrets.SERVER_CREDENTIAL_USERNAME }}
           key: ${{ secrets.SERVER_CREDENTIAL_PRIVATE_KEY }}
           port: 2211
-          passphrase: Rezay0ga@85
+          passphrase: ${{ secrets.SERVER_CREDENTIAL_PASSPHRASE }}
           script: |
             cd /home/rezayogaswara/python_projects/flask-middleware-setup
             ls -ahl
-            lsb_release -a
+            pwd
             whoami
