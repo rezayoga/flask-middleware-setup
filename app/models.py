@@ -77,35 +77,3 @@ class Movie(db.Model):
     def __repr__(self):
         return f'<Movie id: {self.id} - {self.title} - {self.genre} - {self.year}>'
 
-
-def getCurrentDate(withTime=False):
-    month = ['Januari',
-             'Februari',
-             'Maret',
-             'April',
-             'Mei',
-             'Juni',
-             'Juli',
-             'Agustus',
-             'September',
-             'Oktober',
-             'November',
-             'Desember'
-             ]
-
-    if (withTime):
-        return '%s-%s-%s %s:%s:%s' % (time.strftime('%Y'), time.strftime('%m'), time.strftime('%d'), time.strftime('%H'), time.strftime('%M'), time.strftime('%S'))
-    return '%s-%s-%s' % (time.strftime('%d'), month[int(time.strftime('%m')) - 1].upper(), now.year)
-
-
-def create_dummy():
-    # Create a test user
-    public_id = str(uuid.uuid4())
-    new_user = User(username='zahraan', password='zahraan', fullname='Muhammad Zahraan',
-                    created_at=getCurrentDate(True), public_id=public_id)
-    db.session.add(new_user)
-    db.session.commit()
-
-
-if __name__ == '__main__':
-    create_dummy()
