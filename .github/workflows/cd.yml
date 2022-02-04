@@ -29,8 +29,8 @@ jobs:
         with:
           # host: ${{ secrets.SERVER_CREDENTIAL_HOST }}
           host: rezayogaswara.com
-          # username: ${{ secrets.SERVER_CREDENTIAL_USERNAME }}
-          username: root
+          username: ${{ secrets.SERVER_CREDENTIAL_USERNAME }}
+          # username: root
           key: ${{ secrets.SERVER_CREDENTIAL_PRIVATE_KEY }}
           port: 2211
           passphrase: ${{ secrets.SERVER_CREDENTIAL_PASSPHRASE }}
