@@ -1,0 +1,14 @@
+<h1>Hello world from the main blueprint!</h1>
+{% if users|length > 0 %}
+{% for result in users %}
+<ul>
+    <li class="center aligned"> {{ result.public_id }} </li>
+    <li class="center aligned"> {{ result.username }}</li>
+    <li class="center aligned"> {{ result.password }} </td>
+    <li class="center aligned"> {{ result.fullname }} </li>
+    <li class="center aligned"> {{ result.created_at }} </td>
+</ul>
+{% endfor %}
+{% else %}
+No results found!
+{% endif %}
