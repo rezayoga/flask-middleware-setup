@@ -32,6 +32,8 @@ jobs:
           key: ${{ secrets.SERVER_CREDENTIAL_PRIVATE_KEY }}
           port: 2211
           passphrase: ${{ secrets.SERVER_CREDENTIAL_PASSPHRASE }}
+          script_stop: true
+          debug: true
           script: |
             cd /home/rezayogaswara/python_projects/flask-middleware-setup
             ls -ahl
