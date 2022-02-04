@@ -7,10 +7,10 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: 
-      main
+      - main
 
   # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  # workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -24,8 +24,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Deploy to server
-        uses: appleboy/ssh-action@master
+      - name: Deploy to my server
+        uses: appleboy/ssh-action@main
         with:
           host: ${{ secrets.SERVER_CREDENTIAL_HOSTNAME }}
           username: ${{ secrets.SERVER_CREDENTIAL_HOSTNAME }}
