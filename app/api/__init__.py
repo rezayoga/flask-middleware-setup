@@ -12,7 +12,7 @@ authorizations = {
 }
 
 api_blueprint = Blueprint('api', __name__)
-api = Api(api_blueprint, version='1.0', title='TodoMVC API',
+api = Api(api_blueprint, version='1.0.1', title='TodoMVC API',
           description='A simple TodoMVC API',
           )
 
