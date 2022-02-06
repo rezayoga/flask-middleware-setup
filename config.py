@@ -24,13 +24,13 @@ class Config:
     SECRET_KEY = os.getenv(
         'SECRET_KEY', default='86646d816e17821a367f0f81897a2c4851ec088723d31ae9b9e87ed967475f4b')
 
-    MAIL_SERVER = 'smtp.googlemail.com'
-    MAIL_PORT = 465
+    MAIL_SERVER = 'mail.rezayogaswara.com'
+    MAIL_PORT = 25
     MAIL_USE_TLS = False
-    MAIL_USE_SSL = True
-    MAIL_USERNAME = os.getenv('MAIL_USERNAME', default='')
-    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', default='')
-    MAIL_DEFAULT_SENDER = os.getenv('MAIL_USERNAME', default='')
+    MAIL_USE_SSL = False
+    MAIL_USERNAME = os.getenv('MAIL_USERNAME', default='me@rezayogaswara.com')
+    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', default='Rezay0ga@85')
+    MAIL_DEFAULT_SENDER = os.getenv('MAIL_USERNAME', default='Reza Yogaswara')
     MAIL_SUPPRESS_SEND = False
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
