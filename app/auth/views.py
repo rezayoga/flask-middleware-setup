@@ -17,3 +17,11 @@ def register(email):
 @auth_blueprint.route('/login/')
 def login():
     return render_template('auth/login.html')
+
+
+@auth_blueprint.route("/")
+def index():
+  msg = Message('Hello from the other side!', sender =   'me@rezayogaswara.com', recipients = ['reza.yoga@gmail.com'])
+  msg.body = "Hey Reza, sending you this email from my Flask app, lmk if it works"
+  mail.send(msg)
+  return "Message sent!"
