@@ -1,10 +1,12 @@
 from . import auth_blueprint
-from flask import render_template, request, redirect, url_for
-from ..tasks import send_celery_email
+from flask import render_template, request, redirect, url_for, current_app
+from ..tasks import send_celery_email, mail
+from flask_mail import Message
+
 
 @auth_blueprint.route('/register/<string:email>')
 def register(email):
-    message_data={
+    message_data = {
         'subject': 'Hello from the flask app!',
         'body': 'This email was sent asynchronously using Celery.',
         'recipients': email,
@@ -21,7 +23,9 @@ def login():
 
 @auth_blueprint.route("/")
 def index():
-  msg = Message('Hello from the other side!', sender =   'me@rezayogaswara.com', recipients = ['reza.yoga@gmail.com'])
-  msg.body = "Hey Reza, sending you this email from my Flask app, lmk if it works"
-  mail.send(msg)
-  return "Message sent!"
+    app = current_app._get_current_object()
+    msg = Message('Hello from the other side!',
+                  sender=app.config['MAIL_DEFAULT_SENDER'], recipients=['reza.yoga@gmail.com'])
+    msg.body = "Hey Reza, sending you this email from my Flask app, lmk if it works"
+    mail.send(msg)
+    return "Message sent!"
