@@ -25,8 +25,8 @@ class Config:
         'SECRET_KEY', default='86646d816e17821a367f0f81897a2c4851ec088723d31ae9b9e87ed967475f4b')
 
     MAIL_SERVER = 'mail.rezayogaswara.com'
-    MAIL_PORT = 465
-    MAIL_USE_TLS = True
+    MAIL_PORT = 25
+    MAIL_USE_TLS = False
     MAIL_USE_SSL = False
     MAIL_USERNAME = os.getenv('MAIL_USERNAME', default='me@rezayogaswara.com')
     MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', default='Rezay0ga@85')
