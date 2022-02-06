@@ -25,7 +25,9 @@ def login():
 def index():
     app = current_app._get_current_object()
     msg = Message('Hello from the other side!',
-                  sender=app.config['MAIL_DEFAULT_SENDER'], recipients=['reza.yoga@gmail.com'])
+                  sender=("Reza Yogaswara",
+                          app.config['MAIL_DEFAULT_SENDER']),
+                  recipients=['admin@komunitassahabatsehat.com'])
     msg.body = "Hey Reza, sending you this email from my Flask app, lmk if it works"
     mail.send(msg)
     return "Message sent!"
