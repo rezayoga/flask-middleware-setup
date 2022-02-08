@@ -30,7 +30,7 @@ class Config:
     MAIL_USE_SSL = False
     # MAIL_USERNAME = os.getenv('MAIL_USERNAME', default='me@rezayogaswara.com')
     MAIL_USERNAME = 'me@rezayogaswara.com'
-    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', default='Rezay0ga@85')
+    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', default='Rezay0ga@85a')
     MAIL_DEFAULT_SENDER = 'me@rezayogaswara.com'
     #MAIL_DEFAULT_SENDER = os.getenv('MAIL_USERNAME', default='Reza Yogaswara')
     MAIL_SUPPRESS_SEND = False
