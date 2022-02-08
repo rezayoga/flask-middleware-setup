@@ -15,6 +15,7 @@ from logging.handlers import RotatingFileHandler
 from flask_sqlalchemy import SQLAlchemy
 import bugsnag
 from bugsnag.flask import handle_exceptions
+from bugsnag.handlers import BugsnagHandler
 
 ### Flask extension objects instantiation ###
 mail = Mail()
@@ -114,21 +115,29 @@ def register_error_handlers(app):
 def configure_logging(app):
 
     # Deactivate the default flask logger so that log messages don't get duplicated
-    app.logger.removeHandler(default_handler)
+    #app.logger.removeHandler(default_handler)
 
     # Create a file handler object
-    file_handler = RotatingFileHandler(
-        'flaskapp.log', maxBytes=16384, backupCount=20)
+    #file_handler = RotatingFileHandler('flaskapp.log', maxBytes=16384, backupCount=20)
 
     # Set the logging level of the file handler object so that it logs INFO and up
-    file_handler.setLevel(logging.INFO)
+    #file_handler.setLevel(logging.INFO)
 
     # Create a file formatter object
-    file_formatter = logging.Formatter(
-        '%(asctime)s %(levelname)s: %(message)s [in %(filename)s: %(lineno)d]')
+    #file_formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(filename)s: %(lineno)d]')
 
     # Apply the file formatter object to the file handler object
-    file_handler.setFormatter(file_formatter)
+    #file_handler.setFormatter(file_formatter)
 
     # Add file handler object to the logger
-    app.logger.addHandler(file_handler)
+    #app.logger.addHandler(file_handler)
+
+    logger = logging.getLogger("test.logger")
+
+
+    handler = BugsnagHandler()
+    # send only ERROR-level logs and above
+    #handler.setLevel(logging.ERROR)
+    #logger.addHandler(handler)
+
+    logger.addFilter(handler.leave_breadcrumbs)
