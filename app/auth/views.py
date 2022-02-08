@@ -2,6 +2,7 @@ from . import auth_blueprint
 from flask import render_template, request, redirect, url_for, current_app
 from ..tasks import send_celery_email, mail
 from flask_mail import Message
+import bugsnag
 
 
 @auth_blueprint.route('/register/<string:email>')
@@ -30,4 +31,5 @@ def index():
                   recipients=['admin@komunitassahabatsehat.com'])
     msg.body = "Hey Reza, sending you this email from my Flask app, lmk if it works"
     mail.send(msg)
+    bugsnag.notify(Exception('Test mail sent'))
     return "Message sent!"

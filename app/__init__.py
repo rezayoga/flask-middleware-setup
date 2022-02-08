@@ -13,17 +13,30 @@ import logging
 from flask.logging import default_handler
 from logging.handlers import RotatingFileHandler
 from flask_sqlalchemy import SQLAlchemy
+import bugsnag
+from bugsnag.flask import handle_exceptions
 
 ### Flask extension objects instantiation ###
 mail = Mail()
 db = SQLAlchemy()
 ### Instantiate Celery ###
-celery = Celery(__name__, broker=Config.CELERY_BROKER_URL, result_backend=Config.RESULT_BACKEND)  # NEW!!!!!
+celery = Celery(__name__, broker=Config.CELERY_BROKER_URL,
+                result_backend=Config.RESULT_BACKEND)  # NEW!!!!!
+
+bugsnag.configure(
+    api_key="809b696a1aee8628288d17b65985c198",
+    project_root=os.getcwd(),
+)
 
 ### Application Factory ###
+
+
 def create_app():
 
     app = Flask(__name__)
+
+    # bug snag
+    handle_exceptions(app)
 
     # Configure the flask app instance
     CONFIG_TYPE = os.getenv('CONFIG_TYPE', default='config.DevelopmentConfig')
@@ -60,12 +73,15 @@ def register_blueprints(app):
     app.register_blueprint(auth_blueprint, url_prefix='/users')
     app.register_blueprint(main_blueprint)
 
+
 def initialize_extensions(app):
     mail.init_app(app)
+
 
 def initialize_database(app):
     from app.models import db
     db.init_app(app)
+
 
 def register_error_handlers(app):
 
@@ -94,23 +110,25 @@ def register_error_handlers(app):
     def server_error(e):
         return render_template('500.html'), 500
 
+
 def configure_logging(app):
 
-    # Deactivate the default flask logger so that log messages don't get duplicated 
+    # Deactivate the default flask logger so that log messages don't get duplicated
     app.logger.removeHandler(default_handler)
 
     # Create a file handler object
-    file_handler = RotatingFileHandler('flaskapp.log', maxBytes=16384, backupCount=20)
+    file_handler = RotatingFileHandler(
+        'flaskapp.log', maxBytes=16384, backupCount=20)
 
     # Set the logging level of the file handler object so that it logs INFO and up
     file_handler.setLevel(logging.INFO)
 
     # Create a file formatter object
-    file_formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(filename)s: %(lineno)d]')
+    file_formatter = logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s [in %(filename)s: %(lineno)d]')
 
     # Apply the file formatter object to the file handler object
     file_handler.setFormatter(file_formatter)
 
     # Add file handler object to the logger
     app.logger.addHandler(file_handler)
-
