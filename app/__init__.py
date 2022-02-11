@@ -22,7 +22,7 @@ mail = Mail()
 db = SQLAlchemy()
 ### Instantiate Celery ###
 celery = Celery(__name__, broker=Config.CELERY_BROKER_URL,
-                result_backend=Config.RESULT_BACKEND)  # NEW!!!!!
+                result_backend=Config.CELERY_RESULT_BACKEND)  # NEW!!!!!
 
 bugsnag.configure(
     api_key="809b696a1aee8628288d17b65985c198",
