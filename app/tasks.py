@@ -12,5 +12,3 @@ def send_celery_email(message_data):
 
     mail.send(message)
 
-   
-

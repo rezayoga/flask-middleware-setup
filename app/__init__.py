@@ -30,8 +30,6 @@ bugsnag.configure(
 )
 
 ### Application Factory ###
-
-
 def create_app():
 
     app = Flask(__name__)
