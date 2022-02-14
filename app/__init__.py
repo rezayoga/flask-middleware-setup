@@ -4,6 +4,7 @@ Using the application factory allows for the creation of flask applications conf
 for different environments based on the value of the CONFIG_TYPE environment variable
 """
 
+from asyncio.log import logger
 import os
 from flask import Flask, render_template
 from flask_mail import Mail
@@ -16,6 +17,7 @@ from flask_sqlalchemy import SQLAlchemy
 import bugsnag
 from bugsnag.flask import handle_exceptions
 from bugsnag.handlers import BugsnagHandler
+import click
 
 ### Flask extension objects instantiation ###
 mail = Mail()
@@ -30,6 +32,8 @@ bugsnag.configure(
 )
 
 ### Application Factory ###
+
+
 def create_app():
 
     app = Flask(__name__)
@@ -58,6 +62,21 @@ def create_app():
 
     # Register SQLAlchemy
     initialize_database(app)
+
+    @app.cli.command("create-user")
+    @click.argument("username", nargs=1)
+    @click.argument("fullname", nargs=1)
+    @click.argument("password", nargs=1)
+    def create_user(username, fullname, password):
+        """Create a user."""
+        print("Creating user: {}, {}, {}".format(username, fullname, password))
+        from app.models import User
+        from app.models import db
+        db.create_all()
+        user = User(username=username, fullname=fullname, password=password)
+        db.session.add(user)
+        db.session.commit()
+        print("Created user: {}".format(user))
 
     return app
 
@@ -113,29 +132,28 @@ def register_error_handlers(app):
 def configure_logging(app):
 
     # Deactivate the default flask logger so that log messages don't get duplicated
-    #app.logger.removeHandler(default_handler)
+    # app.logger.removeHandler(default_handler)
 
     # Create a file handler object
     #file_handler = RotatingFileHandler('flaskapp.log', maxBytes=16384, backupCount=20)
 
     # Set the logging level of the file handler object so that it logs INFO and up
-    #file_handler.setLevel(logging.INFO)
+    # file_handler.setLevel(logging.INFO)
 
     # Create a file formatter object
     #file_formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(filename)s: %(lineno)d]')
 
     # Apply the file formatter object to the file handler object
-    #file_handler.setFormatter(file_formatter)
+    # file_handler.setFormatter(file_formatter)
 
     # Add file handler object to the logger
-    #app.logger.addHandler(file_handler)
+    # app.logger.addHandler(file_handler)
 
     logger = logging.getLogger("test.logger")
 
-
     handler = BugsnagHandler()
     # send only ERROR-level logs and above
-    #handler.setLevel(logging.ERROR)
-    #logger.addHandler(handler)
+    # handler.setLevel(logging.ERROR)
+    # logger.addHandler(handler)
 
     logger.addFilter(handler.leave_breadcrumbs)
