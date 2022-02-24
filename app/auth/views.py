@@ -1,6 +1,6 @@
 from . import auth_blueprint
 from flask import render_template, request, redirect, url_for, current_app
-from ..tasks import send_celery_email, mail
+from ..tasks import send_celery_email, mail, find_fibonacci_async
 from flask_mail import Message
 import bugsnag
 
@@ -15,6 +15,11 @@ def register(email):
     }
     send_celery_email.apply_async(args=[message_data])
     return render_template('auth/register.html', email=email)
+
+
+@auth_blueprint.route('/find_fibonacci/<int:number>')
+def find_fibonacci(number):
+    return find_fibonacci_async.apply_async(args=[number])
 
 
 @auth_blueprint.route('/login/')
