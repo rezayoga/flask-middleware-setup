@@ -19,7 +19,7 @@ def register(email):
 
 @auth_blueprint.route('/find_fibonacci/<int:number>')
 def find_fibonacci(number):
-    f = find_fibonacci_async(number)
+    f = find_fibonacci_async.delay(number)
     return render_template('auth/fibonacci.html', f=f)
 
 
