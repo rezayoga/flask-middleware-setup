@@ -19,7 +19,8 @@ def register(email):
 
 @auth_blueprint.route('/find_fibonacci/<int:number>')
 def find_fibonacci(number):
-    return find_fibonacci_async.apply_async(args=[number])
+    f = find_fibonacci_async(number)
+    return render_template('auth/fibonacci.html', f=f)
 
 
 @auth_blueprint.route('/login/')
